@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import LoginPageComponent from 'components/login-page/login-page';
 import { CombinedState } from 'reducers/interfaces';
 import { loginAsync } from 'actions/auth-actions';
@@ -27,4 +28,4 @@ const mapDispatchToProps: DispatchToProps = {
     onLogin: loginAsync,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPageComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginPageComponent));

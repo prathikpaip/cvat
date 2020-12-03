@@ -11,6 +11,7 @@ export type StringObject = {
 };
 
 export interface AuthState {
+    redirect: string | null;
     initialized: boolean;
     fetching: boolean;
     user: any;

@@ -64,6 +64,7 @@ interface CVATAppProps {
     authActionsInitialized: boolean;
     notifications: NotificationsState;
     user: any;
+    redirect: string | null;
     isModelPluginActive: boolean;
 }
 
@@ -88,7 +89,7 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
         verifyAuthorized();
     }
 
-    public componentDidUpdate(): void {
+    public componentDidUpdate(prevProps: CVATAppProps & RouteComponentProps): void {
         const {
             verifyAuthorized,
             loadFormats,
@@ -113,6 +114,8 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
             authActionsFetching,
             authActionsInitialized,
             isModelPluginActive,
+            redirect,
+            history,
         } = this.props;
 
         this.showErrors();
@@ -150,6 +153,10 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
 
         if (!pluginsInitialized && !pluginsFetching) {
             initPlugins();
+        }
+
+        if (redirect && redirect !== prevProps.redirect) {
+            history.push(redirect);
         }
     }
 

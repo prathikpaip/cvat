@@ -7,6 +7,7 @@ import { AuthActions, AuthActionTypes } from 'actions/auth-actions';
 import { AuthState } from './interfaces';
 
 const defaultState: AuthState = {
+    redirect: null,
     initialized: false,
     fetching: false,
     user: null,
@@ -39,6 +40,7 @@ export default function (state = defaultState, action: AuthActions | BoundariesA
             return {
                 ...state,
                 fetching: false,
+                redirect: action.payload.redirect,
                 user: action.payload.user,
             };
         case AuthActionTypes.LOGIN_FAILED:
@@ -94,9 +96,9 @@ export default function (state = defaultState, action: AuthActions | BoundariesA
             return {
                 ...state,
                 showChangePasswordDialog:
-                    typeof action.payload.showChangePasswordDialog === 'undefined'
-                        ? !state.showChangePasswordDialog
-                        : action.payload.showChangePasswordDialog,
+                    typeof action.payload.showChangePasswordDialog === 'undefined' ?
+                        !state.showChangePasswordDialog :
+                        action.payload.showChangePasswordDialog,
             };
         case AuthActionTypes.REQUEST_PASSWORD_RESET:
             return {

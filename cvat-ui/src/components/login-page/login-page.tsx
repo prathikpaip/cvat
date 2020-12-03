@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Title from 'antd/lib/typography/Title';
 import Text from 'antd/lib/typography/Text';
 import { Row, Col } from 'antd/lib/grid';
@@ -15,7 +15,7 @@ import CookieDrawer from './cookie-policy-drawer';
 interface LoginPageComponentProps {
     fetching: boolean;
     renderResetPassword: boolean;
-    onLogin: (username: string, password: string) => void;
+    onLogin: (username: string, password: string, redirect: string | null) => void;
 }
 
 function LoginPageComponent(props: LoginPageComponentProps & RouteComponentProps): JSX.Element {
@@ -27,7 +27,11 @@ function LoginPageComponent(props: LoginPageComponentProps & RouteComponentProps
         xl: { span: 4 },
     };
 
-    const { fetching, onLogin, renderResetPassword } = props;
+    const {
+        fetching, onLogin, renderResetPassword, location,
+    } = props;
+
+    const redirectParam = new URLSearchParams(location.search).get('redirect');
 
     return (
         <>
@@ -37,7 +41,7 @@ function LoginPageComponent(props: LoginPageComponentProps & RouteComponentProps
                     <LoginForm
                         fetching={fetching}
                         onSubmit={(loginData: LoginData): void => {
-                            onLogin(loginData.username, loginData.password);
+                            onLogin(loginData.username, loginData.password, redirectParam);
                         }}
                     />
                     <Row type='flex' justify='start' align='top'>
@@ -64,4 +68,4 @@ function LoginPageComponent(props: LoginPageComponentProps & RouteComponentProps
     );
 }
 
-export default withRouter(LoginPageComponent);
+export default LoginPageComponent;

@@ -45,6 +45,7 @@ interface StateToProps {
     allowResetPassword: boolean;
     notifications: NotificationsState;
     user: any;
+    redirect: string | null;
     keyMap: Record<string, ExtendedKeyMapOptions>;
     isModelPluginActive: boolean;
 }
@@ -91,6 +92,7 @@ function mapStateToProps(state: CombinedState): StateToProps {
         allowResetPassword: auth.allowResetPassword,
         notifications: state.notifications,
         user: auth.user,
+        redirect: auth.redirect,
         keyMap: shortcuts.keyMap,
         isModelPluginActive: plugins.list.MODELS,
     };

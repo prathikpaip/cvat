@@ -3,12 +3,14 @@
 // SPDX-License-Identifier: MIT
 
 import React, { useEffect } from 'react';
-import { Redirect, useParams } from 'react-router';
+import { Redirect, useParams, useLocation } from 'react-router';
 import { useCookies } from 'react-cookie';
 
 export default function LoginWithTokenComponent(): JSX.Element {
-    const { sessionId, token } = useParams();
+    const { sessionId, token } = useParams<{ sessionId: string; token: string }>();
     const [cookies, setCookie] = useCookies(['sessionid', 'csrftoken']);
+    const location = useLocation();
+    const redirectParam = new URLSearchParams(location.search).get('redirect');
 
     const expires1y = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
     const expires2w = new Date(new Date().setDate(new Date().getDate() + 13));
@@ -24,7 +26,7 @@ export default function LoginWithTokenComponent(): JSX.Element {
     );
 
     if (cookies.sessionid && cookies.csrftoken) {
-        return <Redirect to='/tasks' />;
+        return <Redirect to={redirectParam || '/tasks'} />;
     }
     return <></>;
 }
