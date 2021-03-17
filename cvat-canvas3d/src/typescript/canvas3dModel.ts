@@ -33,6 +33,12 @@ export enum ViewType {
     FRONT = 'front',
 }
 
+export enum MouseInteraction {
+    CLICK = 'click',
+    DOUBLE_CLICK = 'dblclick',
+    HOVER = 'hover',
+}
+
 export enum UpdateReasons {
     IMAGE_CHANGED = 'image_changed',
     OBJECTS_UPDATED = 'objects_updated',

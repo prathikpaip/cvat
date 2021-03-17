@@ -11,9 +11,8 @@ import {
 } from '@ant-design/icons';
 import { ResizableBox } from 'react-resizable';
 import { Workspace } from 'reducers/interfaces';
-import { Canvas3d } from 'cvat-canvas3d-wrapper';
+import { Canvas3d, MouseInteraction, ViewType } from 'cvat-canvas3d-wrapper';
 import ContextImage from '../standard3D-workspace/context-image/context-image';
-import { ViewType } from '../../../reducers/interfaces';
 
 interface Props {
     canvasInstance: Canvas3d;
@@ -73,17 +72,17 @@ const CanvasWrapperComponent = (props: Props): ReactElement => {
 
     const onMouseClick = (event: MouseEvent): void => {
         const { canvasInstance } = props;
-        canvasInstance.mouseControls('click', event);
+        canvasInstance.mouseControls(MouseInteraction.CLICK, event);
     };
 
     const onMouseDoubleClick = (event: MouseEvent): void => {
         const { canvasInstance } = props;
-        canvasInstance.mouseControls('dblclick', event);
+        canvasInstance.mouseControls(MouseInteraction.DOUBLE_CLICK, event);
     };
 
     const onMouseHover = (event: MouseEvent): void => {
         const { canvasInstance } = props;
-        canvasInstance.mouseControls('hover', event);
+        canvasInstance.mouseControls(MouseInteraction.HOVER, event);
     };
 
     const onCanvasCancel = (): void => {
@@ -99,8 +98,8 @@ const CanvasWrapperComponent = (props: Props): ReactElement => {
         canvasInstanceDOM.perspective.addEventListener('canvas.setup', onCanvasSetup);
         canvasInstanceDOM.perspective.addEventListener('mousemove', onMouseHover);
         canvasInstanceDOM.perspective.addEventListener('canvas.canceled', onCanvasCancel);
-        canvasInstanceDOM.perspective.addEventListener('dblclick', onMouseDoubleClick);
-        canvasInstanceDOM.perspective.addEventListener('click', onMouseClick);
+        canvasInstanceDOM.perspective.addEventListener(MouseInteraction.DOUBLE_CLICK, onMouseDoubleClick);
+        canvasInstanceDOM.perspective.addEventListener(MouseInteraction.CLICK, onMouseClick);
     };
 
     const keyControls = (key: KeyboardEvent): void => {
@@ -207,8 +206,8 @@ const CanvasWrapperComponent = (props: Props): ReactElement => {
             canvasInstanceDOM.perspective.removeEventListener('canvas.setup', onCanvasSetup);
             canvasInstanceDOM.perspective.removeEventListener('mousemove', onMouseHover);
             canvasInstanceDOM.perspective.removeEventListener('canvas.canceled', onCanvasCancel);
-            canvasInstanceDOM.perspective.removeEventListener('dblclick', onMouseDoubleClick);
-            canvasInstanceDOM.perspective.removeEventListener('click', onMouseClick);
+            canvasInstanceDOM.perspective.removeEventListener(MouseInteraction.DOUBLE_CLICK, onMouseDoubleClick);
+            canvasInstanceDOM.perspective.removeEventListener(MouseInteraction.CLICK, onMouseClick);
             document.removeEventListener('keydown', keyControls);
             cancelAnimationFrame(animateId.current);
         };
