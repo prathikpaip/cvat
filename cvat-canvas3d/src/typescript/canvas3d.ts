@@ -22,7 +22,6 @@ interface Canvas3d {
     mouseControls(type: string, event: MouseEvent): void;
     draw(drawData: DrawData): void;
     cancel(): void;
-    readonly viewType: ViewType;
 }
 
 class Canvas3dImpl implements Canvas3d {
@@ -71,10 +70,6 @@ class Canvas3dImpl implements Canvas3d {
     public cancel(): void {
         this.model.cancel();
     }
-
-    public get viewType(): ViewType {
-        return this.model.viewType;
-    }
 }
 
-export { Canvas3dImpl as Canvas3d, Canvas3dVersion };
+export { Canvas3dImpl as Canvas3d, Canvas3dVersion, ViewType };
