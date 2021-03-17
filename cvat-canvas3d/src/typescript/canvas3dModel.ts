@@ -46,7 +46,6 @@ export enum UpdateReasons {
 export enum Mode {
     IDLE = 'idle',
     DRAG = 'drag',
-    CREATE = 'create',
     RESIZE = 'resize',
     DRAW = 'draw',
     EDIT = 'edit',
