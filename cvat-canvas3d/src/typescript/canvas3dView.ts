@@ -386,7 +386,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
         }
     }
 
-    public mouseControls(type: string, event: MouseEvent): void {
+    public mouseControls(type: MouseInteraction, event: MouseEvent): void {
         event.preventDefault();
         if (type === MouseInteraction.DOUBLE_CLICK && this.mode === Mode.DRAW) {
             this.controller.drawData.enabled = false;
