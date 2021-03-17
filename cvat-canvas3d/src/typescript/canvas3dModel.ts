@@ -70,10 +70,12 @@ export interface Canvas3dModel {
     isAbleToChangeFrame(): boolean;
     draw(drawData: DrawData): void;
     cancel(): void;
+    viewType: ViewType;
 }
 
 export class Canvas3dModelImpl extends MasterImpl implements Canvas3dModel {
     public data: Canvas3dDataModel;
+    public readonly viewType: ViewType;
 
     public constructor() {
         super();

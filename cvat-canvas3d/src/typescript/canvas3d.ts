@@ -5,7 +5,7 @@
 import pjson from '../../package.json';
 import { Canvas3dController, Canvas3dControllerImpl } from './canvas3dController';
 import {
-    Canvas3dModel, Canvas3dModelImpl, Mode, DrawData,
+    Canvas3dModel, Canvas3dModelImpl, Mode, DrawData, ViewType,
 } from './canvas3dModel';
 import { Canvas3dView, Canvas3dViewImpl, ViewsDOM } from './canvas3dView';
 import { Master } from './master';
@@ -22,6 +22,7 @@ interface Canvas3d {
     mouseControls(type: string, event: MouseEvent): void;
     draw(drawData: DrawData): void;
     cancel(): void;
+    readonly viewType: ViewType;
 }
 
 class Canvas3dImpl implements Canvas3d {
@@ -69,6 +70,10 @@ class Canvas3dImpl implements Canvas3d {
 
     public cancel(): void {
         this.model.cancel();
+    }
+
+    public get viewType(): ViewType {
+        return this.model.viewType;
     }
 }
 
